@@ -1,0 +1,37 @@
+Given the head of a linked list, rotate the list to the right by k places.
+
+Example 1:
+
+Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
+
+Example 2:
+
+Input: head = [0,1,2], k = 4
+Output: [2,0,1]
+
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        ListNode start = head, end = head, curr = head;
+        int count = 0;
+        if(head == null || head.next == null)
+            return head;
+        while(curr != null){
+            curr = curr.next;
+            count++;
+        }
+        while(end.next != null){
+            end = end.next;
+        }
+        end.next = head; 
+        int i = 0;
+        k %= count;
+        while(i < count - k - 1){
+            i++;
+            start = start.next;
+        }
+        ListNode newhead = start.next;
+        start.next = null;
+        return newhead;
+    }
+}
