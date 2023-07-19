@@ -1,0 +1,90 @@
+There is one meeting room in a firm. There are N meetings in the form of (start[i], end[i]) where start[i] is start time of meeting i and end[i] is finish time of meeting i.
+What is the maximum number of meetings that can be accommodated in the meeting room when only one meeting can be held in the meeting room at a particular time?
+
+Note: Start time of one chosen meeting can't be equal to the end time of the other chosen meeting.
+
+
+Example 1:
+
+Input:
+N = 6
+start[] = {1,3,0,5,8,5}
+end[] =  {2,4,6,7,9,9}
+Output: 
+4
+Explanation:
+Maximum four meetings can be held with
+given start and end timings.
+The meetings are - (1, 2),(3, 4), (5,7) and (8,9)
+Example 2:
+
+Input:
+N = 3
+start[] = {10, 12, 20}
+end[] = {20, 25, 30}
+Output: 
+1
+Explanation:
+Only one meetings can be held
+with given start and end timings.
+
+
+    
+class meeting{
+    int start;
+    int end;
+    int pos;
+        
+    meeting(int start, int end, int pos)
+    {
+        this.start=start;
+        this.end=end;
+        this.pos=pos;
+    }
+}
+
+class mycomparator implements Comparator<meeting>
+{
+    @Override public int compare(meeting m1, meeting m2)
+    {
+        return m1.end-m2.end;
+    }
+}
+
+class Solution 
+{
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    public static int maxMeetings(int start[], int end[], int n)
+    {
+        ArrayList<meeting> m = new ArrayList<>();
+        
+        for(int i=0;i<n;i++)
+        {
+            m.add( new meeting(start[i], end[i], i));
+        }
+        
+        ArrayList<Integer> ans =new ArrayList<>();
+        mycomparator mc= new mycomparator();
+        
+        Collections.sort(m,mc);
+        
+        ans.add(m.get(0).pos);
+        
+        int time_limit= m.get(0).end;
+        
+        for(int i=0;i<m.size();i++)
+        {
+            if(m.get(i).start>time_limit)
+            {
+                ans.add(m.get(i).pos);
+                time_limit=m.get(i).end;
+            }
+        }
+        
+        return ans.size();
+        
+        
+        
+    }
+}
