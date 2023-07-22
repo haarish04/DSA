@@ -1,0 +1,45 @@
+Given a string A. The only operation allowed is to insert characters at the beginning of the string.
+Find how many minimum characters are needed to be inserted to make the string a palindrome string.
+
+
+Example Input
+Input 1:
+A = "ABC"
+Input 2:
+A = "AACECAAAA"
+
+
+Example Output
+Output 1:
+2
+Output 2:
+2
+
+public class Solution {
+
+    public static int minCharsforPalindrome(String str) {
+        int i=0;
+        int j=str.length()-1;
+        int t=str.length()-1;
+        int res=0;
+
+        while(i<j)
+        {
+            if(str.charAt(i)==str.charAt(j))
+            {
+                i++;
+                j--;
+            }
+            else
+            {
+                res++;
+                i=0;
+                j=--t;
+            }
+
+        }
+        return res;
+
+    }
+
+}
