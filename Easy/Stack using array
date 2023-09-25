@@ -1,0 +1,51 @@
+public class Solution{
+
+    static int N=0;
+    static int []s;
+    static class Stack {
+        Stack(int capacity) {
+            s= new int[capacity];
+        }
+        public void push(int num) {
+            if(N<s.length)
+                s[N++]=num;
+            
+        }
+        public int pop() {
+           if(N>0){
+
+                int item = s[--N];
+
+                return item;
+
+            }
+
+            return -1;
+        }
+        public int top() {
+                if(N>0){
+                int item = s[N-1];
+            return item;
+
+            }
+
+            return -1;   
+            
+        }
+        public int isEmpty() {
+            
+            if(N==0)
+                return 1;
+            else
+                return 0;
+        }
+        public int isFull() {
+
+            if(N==s.length)
+                return 1;
+            else
+                return 0;
+            
+        }
+    }
+}
