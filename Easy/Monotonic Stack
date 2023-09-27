@@ -1,0 +1,41 @@
+Consider an array Arr[] = {1, 4, 5, 3, 12, 10}
+For i = 0: stk = {1}
+For i = 1: stk = {1, 4}
+For i = 2: stk = {1, 4, 5}
+For i = 3: stk = {1, 3}  [pop 4 and 5 as 4 > 3 and 5 > 3]
+For i = 4: stk = {1, 3, 12}
+For i = 5: stk = {1, 3, 10} [pop 12 as 12 > 10] 
+
+
+class solution {
+
+// Function to build Monotonic
+// increasing stack
+static void increasingStack(int[] arr, int N)
+{
+	// Initialise stack
+	Stack<Integer> stk = new Stack<>();
+
+	for (int i = 0; i < N; i++) {
+
+	// Either stack is empty or
+	// all bigger nums are popped off
+	while (stk.size() > 0 && stk.peek() > arr[i]) {
+		stk.pop();
+	}
+	stk.push(arr[i]);
+	}
+
+	int N2 = stk.size();
+	int[] ans = new int[N2];
+	Arrays.fill(ans, 0);
+	int j = N2 - 1;
+
+	// Empty Stack
+	while (!stk.isEmpty()) {
+	ans[j] = stk.peek();
+	stk.pop();
+	j--;
+	}
+}
+
