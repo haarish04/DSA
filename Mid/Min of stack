@@ -40,7 +40,7 @@ class MinStack {
     
     public void pop()
     {
-        
+        //if(minStack.peek()==st.peek()) is not needed because with every push statement we are pushing the respective min element, so if 0 is min and we pusing 3, we are pushing 0 again and not null therefore dont need to check and direct pop
         minStack.pop();
         st.pop();    
     }
