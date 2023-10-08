@@ -29,6 +29,12 @@ static void increasingStack(int[] arr, int N)
 	int N2 = stk.size();
 	int[] ans = new int[N2];
 	Arrays.fill(ans, 0);
+
+	int j = N2 - 1;
+	while (!stk.isEmpty()) {
+	ans[j] = stk.peek();
+	stk.pop();
+	j--;
 	
 	}
 }
