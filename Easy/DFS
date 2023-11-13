@@ -1,0 +1,89 @@
+You are given a connected undirected graph. Perform a Depth First Traversal of the graph.
+Example 1:
+
+Input: V = 5 , adj = [[2,3,1] , [0], [0,4], [0], [2]]
+
+Output: 0 2 4 3 1
+Explanation: 
+0 is connected to 2, 3, 1.
+1 is connected to 0.
+2 is connected to 0 and 4.
+3 is connected to 0.
+4 is connected to 2.
+so starting from 0, it will go to 2 then 4,
+and then 3 and 1.
+Thus dfs will be 0 2 4 3 1.
+
+-------------------------------------Recursion Method------------------------------------------------
+
+
+class Solution {
+    public ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+        boolean seen[]= new boolean[V];
+        ArrayList<Integer> ans= new ArrayList<>();
+        dfs(seen,adj,ans,0);
+        return ans;
+        
+    }
+    
+    public void dfs(boolean[] seen,ArrayList<ArrayList<Integer>> adj, ArrayList<Integer> ans, int temp)
+    {
+        seen[temp]=true;
+        ans.add(temp);
+        
+        for(int num:adj.get(temp))
+        {
+            if(!seen[num])
+                dfs(seen,adj,ans,num);  
+        }
+        
+    }
+}
+
+
+-------------------------------------------Using stack------------------------------------------------------
+
+
+        void DFS(int s)
+        {
+            // Initially mark all vertices as not visited
+            Vector<Boolean> visited = new Vector<Boolean>(V);
+            for (int i = 0; i < V; i++)
+                visited.add(false);
+     
+            // Create a stack for DFS
+            Stack<Integer> stack = new Stack<>();
+             
+            // Push the current source node
+            stack.push(s);
+             
+            while(stack.empty() == false)
+            {
+                // Pop a vertex from stack and print it
+                s = stack.peek();
+                stack.pop();
+                 
+                // Stack may contain same vertex twice. So
+                // we need to print the popped item only
+                // if it is not visited.
+                if(visited.get(s) == false)
+                {
+                    System.out.print(s + " ");
+                    visited.set(s, true);
+                }
+                 
+                // Get all adjacent vertices of the popped vertex s
+                // If a adjacent has not been visited, then push it
+                // to the stack.
+                Iterator<Integer> itr = adj[s].iterator();
+                 
+                while (itr.hasNext()) 
+                {
+                    int v = itr.next();
+                    if(!visited.get(v))
+                        stack.push(v);
+                }
+                 
+            }
+        }
+    }
