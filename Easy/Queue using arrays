@@ -1,38 +1,52 @@
-public class Solution {
-    class Queue {
-        int front, rear;
-        int []arr;
-        int size;
-
-        Queue() {
-            front = 0;
-            rear = 0;
-            arr = new int[100001];
-            size=arr.length;
-        }
-
-        // Enqueue (add) element 'e' at the end of the queue.
-        public void enqueue(int e) {
-            if (size-1 == rear) {
+class Queue {
+    static private int front, rear, capacity;
+    static private int queue[];
+ 
+    Queue(int c)
+    {
+        front = rear = 0;
+        capacity = c;
+        queue = new int[capacity];
+    }
+ 
+    // function to insert an element
+    // at the rear of the queue
+    static void queueEnqueue(int data)
+    {
+        // check queue is full or not
+        if (capacity == rear) {
+            System.out.printf("\nQueue is full\n");
             return;
         }
-            arr[rear++]=e;
+ 
+        // insert element at the rear
+        else {
+            queue[rear] = data;
+            rear++;
         }
-
-        // Dequeue (retrieve) the element from the front of the queue.
-        public int dequeue() {
-        
-            if (front== rear) {
-            return -1;
+        return;
+    }
+ 
+    // function to delete an element from the front of the queue
+    static void queueDequeue()
+    {
+        if (front == rear) {
+            System.out.printf("\nQueue is empty\n");
+            return;
         }
  
-            int val=arr[front];
-            arr[front++]=-1;
-
-            if(front==rear){
-                front=0;
-                rear=0;}
-            return val;
+        // shift all the elements from index 2 till rear to the left by one
+        else {
+            for (int i = 0; i < rear - 1; i++) {
+                queue[i] = queue[i + 1];
+            }
+ 
+            // store 0 at rear indicating there's no element
+            if (rear < capacity)
+                queue[rear] = 0;
+ 
+            // decrement rear
+            rear--;
         }
+        return;
     }
-}
