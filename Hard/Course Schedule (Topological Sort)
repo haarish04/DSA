@@ -1,0 +1,61 @@
+There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
+
+For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
+Return true if you can finish all courses. Otherwise, return false.
+Example 1:
+
+Input: numCourses = 2, prerequisites = [[1,0]]
+Output: true
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0. So it is possible.
+
+Example 2:
+Input: numCourses = 2, prerequisites = [[1,0],[0,1]]
+Output: false
+Explanation: There are a total of 2 courses to take. 
+To take course 1 you should have finished course 0, and to take course 0 you should also have finished course 1. So it is impossible.
+
+class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites)
+    {
+        if(numCourses==1)
+            return true;
+        // For every course number, create a list of possible dependencies
+        ArrayList<ArrayList<Integer>> prereq = new ArrayList<>();
+        for(int i=0;i<numCourses;i++)
+            prereq.add(new ArrayList<>());
+        
+        //For every course i dependent on j, add i to j's dependency
+        //inDegree is the number of course it requires as prerequisite
+        int[] inDegree= new int[numCourses];
+        for(int[] pre :prerequisites)
+        {
+            prereq.get(pre[1]).add(pre[0]);
+            inDegree[pre[0]]++;
+        }
+        LinkedList<Integer> q = new LinkedList<>();
+        // Whatever course has inDegree =0, is independent and add to queue
+        for(int i=0;i<inDegree.length;i++)
+        {
+            if(inDegree[i]==0)
+                q.add(i);
+        }
+
+        ArrayList<Integer> ans= new ArrayList<>();
+        // while queue has courses implies there are courses that are independent that are not yet added to ans
+        // take each course in q, take the course it is depended upon and decrement their count as we adding this to ans and if if it becomes 0, add this to 0 as it has now become independent (all its prereq are added to ans)
+        while(!q.isEmpty())
+        {
+            int temp= q.remove();
+            ans.add(temp);
+            for(int num: prereq.get(temp))
+            {
+                inDegree[num]--;
+
+                if(inDegree[num]==0)
+                    q.add(num);
+            }
+        }
+        return ans.size() == numCourses;
+    }
+}
