@@ -4,6 +4,6 @@ A personal repo to keep track of my journey as I tackle various DSA problems acr
 
 Easy: Questions I felt were straightforward
 
-Hard: Questions I had to refresh my algos and or data structures
+Javascript: Practising JS
 
-
+Hard: Tough questions
