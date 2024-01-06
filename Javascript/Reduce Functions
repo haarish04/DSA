@@ -1,0 +1,74 @@
+Thereduce functionis a higher-order function that takes an array, a reducer function, and an initial value, and returns a single accumulated value by applying the reducer function to each element of the array.
+
+Approach
+To implement the reduce function, we can iterate over each element of the array, apply the reducer function to the current value and the current element, and update the accumulated value. We can use a for loop, forEach method, or a for...of loop to perform the iteration.
+
+
+
+/**
+ * @param {number[]} nums
+ * @param {Function} fn
+ * @param {number} init
+ * @return {number}
+ */
+var reduce = function(nums, fn, init) {
+  let val = init;
+  for (let i = 0; i < nums.length; i++) {
+    val = fn(val, nums[i]);
+  }
+  return val;
+};
+
+
+
+Using forEach loop
+/**
+ * @param {number[]} nums
+ * @param {Function} fn
+ * @param {number} init
+ * @return {number}
+ */
+var reduce = function(nums, fn, init) {
+  let val = init;
+  nums.forEach(num => {
+    val = fn(val, num);
+  });
+  return val;
+};
+
+
+
+
+Using reduceRight
+function reduceArray(nums, fn, init) {
+  return nums.reverse().reduceRight((val, num) => fn(val, num), init);
+}
+
+
+
+
+
+Using recursion
+function reduceArray(nums, fn, init) {
+  if (nums.length === 0) {
+    return init;
+  } else {
+    const head = nums[0];
+    const tail = nums.slice(1);
+    const val = fn(init, head);
+    return reduceArray4(tail, fn, val);
+  }
+}
+
+
+
+
+
+Using for...of loop
+function reduceArray(nums, fn, init) {
+  let val = init;
+  for (const num of nums) {
+    val = fn(val, num);
+  }
+  return val;
+}
